@@ -59,7 +59,7 @@ public class MathApp {
         Find and display the distance between the points (5,10) and (85,50).
          */
         System.out.println("The distance between points (5,10) and (85,50) is: " +
-                df.format(Math.sqrt(Math.pow((85 - 5), 2) + Math.pow((50 - 10), 2))));
+                df.format(Math.hypot((85 - 5), (50 - 10))));
     }
 
     private static void question6(){
