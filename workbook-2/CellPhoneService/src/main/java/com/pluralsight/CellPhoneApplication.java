@@ -35,11 +35,16 @@ public class CellPhoneApplication {
         cellphone2.setOwner(scan.nextLine());
         System.out.println();
 
+        Cellphone cellphone3 = new Cellphone(3213213, "iPhone 15 Max", "Boost",
+                "321-123-3213", "LEEROY JENKINS");
+
         display(cellphone1);
         display(cellphone2);
+        display(cellphone3);
 
         cellphone1.dial(cellphone2.getPhoneNumber());
         cellphone2.dial(cellphone1.getPhoneNumber());
+        cellphone3.dial(cellphone1);
     }
 
     public static void display(Cellphone cellphone){
