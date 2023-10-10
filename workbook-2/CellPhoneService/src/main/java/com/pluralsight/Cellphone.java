@@ -1,8 +1,8 @@
 package com.pluralsight;
 
 public class Cellphone {
-    private static int serialNumber= 0;
-    private static String model = "", carrier = "", phoneNumber = "", owner = "";
+    private int serialNumber= 0;
+    private String model = "", carrier = "", phoneNumber = "", owner = "";
 
     public Cellphone(){
         this.serialNumber = serialNumber;
@@ -44,6 +44,10 @@ public class Cellphone {
     }
     public String getOwner(){
         return this.owner;
+    }
+
+    public void dial(String phoneNumber){
+        System.out.println(this.owner + "'s phone is calling " + phoneNumber);
     }
 
 }
