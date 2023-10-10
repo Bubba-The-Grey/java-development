@@ -7,7 +7,7 @@ public class TheaterReservations {
     public static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
 
         System.out.print("Please enter your name (firstname lastname): ");
         String name = scan.nextLine();
