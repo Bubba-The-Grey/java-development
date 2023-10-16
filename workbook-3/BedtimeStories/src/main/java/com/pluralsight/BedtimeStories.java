@@ -34,9 +34,11 @@ public class BedtimeStories {
         FileInputStream fis = new FileInputStream("goldilocks.txt");
         Scanner scan = new Scanner(fis);
         String story = "";
+        int count = 1;
         while(scan.hasNextLine()){
             story = scan.nextLine();
-            System.out.println(story);
+            System.out.println("(" + count + ") " + story);
+            count++;
         }
         scan.close();
     }
@@ -44,9 +46,11 @@ public class BedtimeStories {
         FileInputStream fis = new FileInputStream("hansel_and_gretel.txt");
         Scanner scan = new Scanner(fis);
         String story = "";
+        int count = 1;
         while(scan.hasNextLine()){
             story = scan.nextLine();
-            System.out.println(story);
+            System.out.println("(" + count + ") " + story);
+            count++;
         }
         scan.close();
     }
@@ -54,9 +58,11 @@ public class BedtimeStories {
         FileInputStream fis = new FileInputStream("mary_had_a_little_lamb.txt");
         Scanner scan = new Scanner(fis);
         String story = "";
+        int count = 1;
         while(scan.hasNextLine()){
             story = scan.nextLine();
-            System.out.println(story);
+            System.out.println("(" + count + ") " + story);
+            count++;
         }
         scan.close();
     }
