@@ -38,4 +38,22 @@ public class Product {
             }
 
     };
+    public static Comparator<Product> ProductID = new Comparator<Product>() {
+        @Override
+        public int compare(Product p1, Product p2){
+            int ProductID1 = p1.getId();
+            int ProductID2 = p2.getId();
+            return ProductID1 - ProductID2;
+        }
+
+    };
+    public static Comparator<Product> ProductPrice = new Comparator<Product>() {
+        @Override
+        public int compare(Product p1, Product p2){
+            double ProductPrice1 = p1.getPrice();
+            double ProductPrice2 = p2.getPrice();
+            return (int) (ProductPrice1 - ProductPrice2);
+        }
+
+    };
 }
