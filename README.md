@@ -1,7 +1,6 @@
-# java-development
 # Jake Arnett
 
-Email: jarnett34.js@gmail.com
+Email: jarnett34.js@gmail.com  
 Phone: (803) 526-0531
 
 I am an aspiring software/game developer who is currently studying Java through Pluralsight and Year Up.
