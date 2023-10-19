@@ -7,7 +7,9 @@ I am an aspiring software/game developer who is currently studying Java through 
 
 ## Highlights
 
-- Java
+- Graduated from Clover High School Class of 2020 with the Highest Proficiency in Information Technology
+- Highest Science ACT Score for Clover High School Class of 2020
+- 3.4 GPA
 
 ## Work Experience
 
