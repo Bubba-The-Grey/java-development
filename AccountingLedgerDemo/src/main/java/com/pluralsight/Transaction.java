@@ -12,7 +12,7 @@ public class Transaction {
 
 
     // Constructor
-    public Transaction(LocalDate date, LocalTime time, String vendor, String description, double amount){
+    public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount){
         this.amount = amount;
         this.date = date;
         this.time = time;
