@@ -12,7 +12,7 @@ public class AccountingLedger {
     public static Scanner scan = new Scanner(System.in);
     public static DecimalFormat df = new DecimalFormat("0.00");
     public static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
-    public static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm:ss");
+    public static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
 
 
     // Load Ledger Method
@@ -76,7 +76,7 @@ public class AccountingLedger {
                     System.out.println("Exiting Program...");
                     break;
                 default:
-                    System.out.println("ERROR: Invalid Input (please enter 1, 2, 3, or 4");
+                    System.out.println("ERROR: Invalid Input (please enter 1, 2, 3, or 4)");
             }
         } while (input != 4);
     }
@@ -87,14 +87,15 @@ public class AccountingLedger {
     public static void addDeposit() throws  IOException{
         System.out.println("Enter the date of deposit (use format MM/DD/YYYY or leave blank for system date): ");
         String date = scan.nextLine();
-        System.out.println("Enter the time of deposit (use format HH:MM:SS or leave blank for system time): ");
+        System.out.println("Enter the time of deposit (use format HH:MM or leave blank for system time): ");
         String time = scan.nextLine();
         System.out.println("Enter the description of the deposit: ");
         String description = scan.nextLine();
         System.out.println("Enter the vendor of the deposit: ");
         String vendor = scan.nextLine();
         System.out.println("Enter the amount deposited: $");
-        double amount = Double.parseDouble(df.format(scan.nextLine()));
+        double amount = Double.parseDouble(df.format(scan.nextDouble()));
+        scan.nextLine();
         boolean sure = false;
         if(amount > 0){
             sure = true;
@@ -107,7 +108,8 @@ public class AccountingLedger {
             }
             else{
                 System.out.println("Enter the amount deposited: $");
-                amount = Double.parseDouble(df.format(scan.nextLine()));
+                amount = Double.parseDouble(df.format(scan.nextDouble()));
+                scan.nextLine();
                 if(amount > 0){
                     sure = true;
                 }
@@ -115,6 +117,7 @@ public class AccountingLedger {
         }
         transactions.put(count, new Transaction(LocalDate.parse(date, dateFormatter), LocalTime.parse(time, timeFormatter), description, vendor, amount));
         BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true));
+        writer.newLine();
         writer.write(transactions.get(count).toString());
         writer.close();
         count++;
@@ -122,14 +125,15 @@ public class AccountingLedger {
     public static void addPayment() throws IOException{
         System.out.println("Enter the date of payment (use format MM/DD/YYYY or leave blank for system date): ");
         String date = scan.nextLine();
-        System.out.println("Enter the time of payment (use format HH:MM:SS or leave blank for system time): ");
+        System.out.println("Enter the time of payment (use format HH:MM or leave blank for system time): ");
         String time = scan.nextLine();
         System.out.println("Enter the description of the payment: ");
         String description = scan.nextLine();
         System.out.println("Enter the vendor of the payment: ");
         String vendor = scan.nextLine();
         System.out.println("Enter the amount payment: $");
-        double amount = Double.parseDouble(df.format(scan.nextLine()));
+        double amount = Double.parseDouble(df.format(scan.nextDouble()));
+        scan.nextLine();
         boolean sure = false;
         if(amount < 0){
             sure = true;
@@ -141,8 +145,9 @@ public class AccountingLedger {
                 sure = true;
             }
             else{
-                System.out.println("Enter the amount deposited: $");
-                amount = Double.parseDouble(df.format(scan.nextLine()));
+                System.out.println("Enter the amount paid: $");
+                amount = Double.parseDouble(df.format(scan.nextDouble()));
+                scan.nextLine();
                 if(amount < 0){
                     sure = true;
                 }
@@ -150,9 +155,13 @@ public class AccountingLedger {
         }
         transactions.put(count, new Transaction(LocalDate.parse(date, dateFormatter), LocalTime.parse(time, timeFormatter), description, vendor, amount));
         BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true));
+        writer.newLine();
         writer.write(transactions.get(count).toString());
         writer.close();
         count++;
     }
 
+    public static void viewLedger(){
+
+    }
 }
