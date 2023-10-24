@@ -24,6 +24,7 @@ public class AccountingLedger {
         LocalTime time;
         String vendor, description;
         double amount;
+        char DP;
         while((input = reader.readLine()) != null){
             inputs  = input.split("\\|");
             if(!inputs[0].equalsIgnoreCase("date")){
@@ -32,7 +33,8 @@ public class AccountingLedger {
                 description = inputs[2];
                 vendor = inputs[3];
                 amount = Double.parseDouble(inputs[4]);
-                transactions.put(count, new Transaction(date, time, description, vendor, amount));
+                DP = inputs[5].charAt(0);
+                transactions.put(count, new Transaction(date, time, description, vendor, amount, DP));
                 count++;
             }
         }
@@ -115,7 +117,7 @@ public class AccountingLedger {
                 }
             }
         }
-        transactions.put(count, new Transaction(LocalDate.parse(date, dateFormatter), LocalTime.parse(time, timeFormatter), description, vendor, amount));
+        transactions.put(count, new Transaction(LocalDate.parse(date, dateFormatter), LocalTime.parse(time, timeFormatter), description, vendor, amount, 'D'));
         BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true));
         writer.newLine();
         writer.write(transactions.get(count).toString());
@@ -153,7 +155,7 @@ public class AccountingLedger {
                 }
             }
         }
-        transactions.put(count, new Transaction(LocalDate.parse(date, dateFormatter), LocalTime.parse(time, timeFormatter), description, vendor, amount));
+        transactions.put(count, new Transaction(LocalDate.parse(date, dateFormatter), LocalTime.parse(time, timeFormatter), description, vendor, amount, 'D'));
         BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true));
         writer.newLine();
         writer.write(transactions.get(count).toString());
@@ -161,7 +163,58 @@ public class AccountingLedger {
         count++;
     }
 
-    public static void viewLedger(){
+    public static void viewLedger() throws IOException {
+        int input = 0;
+        do {
+            System.out.println("You are viewing the Ledger. Please choose an option");
+            System.out.println("\t1 - View All Entries");
+            System.out.println("\t2 - View Deposits");
+            System.out.println("\t3 - View Payments(Debits)");
+            System.out.println("\t4 - Pre-Defined Reports");
+            System.out.println("\t5 - Return to Home Screen");
+            System.out.print("Your Choice: ");
+            input = scan.nextInt();
+            switch(input){
+                case 1:
+                    viewAllEntries();
+                    break;
+                case 2:
+                    viewDeposits();
+                    break;
+                case 3:
+                    viewPayments();
+                    break;
+                case 4:
+                    Reports();
+                    break;
+                case 5:
+                    System.out.println("Returning to Home Screen...");
+                    break;
+                default:
+                    System.out.println("ERROR: Invalid Input (please enter 1, 2, 3, 4, or 5)");
+            }
+        }while (input != 5);
+    }
+    public static void viewAllEntries(){
+        for(Map.Entry<Integer, Transaction> aa : transactions.entrySet()){
+            System.out.println(aa.getValue().toString());
+        }
+    }
+    public static void viewDeposits(){
+        for(Map.Entry<Integer, Transaction> aa : transactions.entrySet()){
+            if(aa.getValue().getDP() == 'D') {
+                System.out.println(aa.getValue().toString());
+            }
+        }
+    }
+    public static void viewPayments(){
+        for(Map.Entry<Integer, Transaction> aa : transactions.entrySet()){
+            if(aa.getValue().getDP() == 'P') {
+                System.out.println(aa.getValue().toString());
+            }
+        }
+    }
+    public static void Reports(){
 
     }
 }

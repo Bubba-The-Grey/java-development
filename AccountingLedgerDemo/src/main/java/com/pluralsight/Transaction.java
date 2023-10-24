@@ -7,17 +7,19 @@ public class Transaction {
     private LocalTime time;
     private String vendor, description;
     private double amount;
+    private char DP;
 
 
 
 
     // Constructor
-    public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount){
+    public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount, char DP){
         this.amount = amount;
         this.date = date;
         this.time = time;
         this.vendor = vendor;
         this.description = description;
+        this.DP = DP;
     }
 
 
@@ -63,11 +65,17 @@ public class Transaction {
         this.amount = amount;
     }
 
-
+    // Get and Set for Deposit or Payment in Transaction
+    public char getDP(){
+        return this.DP;
+    }
+    public void setDP(char DP){
+        this.DP = DP;
+    }
 
     // Custom toString() method
     @Override
     public String toString() {
-        return this.date + "|" + this.time + "|" + this.description + "|" + this.vendor + "|" + this.amount;
+        return this.date + "|" + this.time + "|" + this.description + "|" + this.vendor + "|" + this.amount + "|" + this.DP;
     }
 }
