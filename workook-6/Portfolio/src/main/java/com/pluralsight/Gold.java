@@ -13,6 +13,6 @@ public class Gold extends FixedAsset{
     }
 
     public double getValue(){
-        return 0;
+        return super.getValue();
     }
 }

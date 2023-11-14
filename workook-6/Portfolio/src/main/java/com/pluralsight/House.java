@@ -23,6 +23,6 @@ public class House extends FixedAsset{
     }
 
     public double getValue(){
-        return 0;
+        return super.getValue();
     }
 }
