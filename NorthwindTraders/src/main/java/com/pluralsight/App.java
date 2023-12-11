@@ -13,5 +13,6 @@ public class App {
         while(results.next()){
             System.out.println(results.getString(2));
         }
+        connection.close();
     }
 }
