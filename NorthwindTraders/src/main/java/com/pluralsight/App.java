@@ -2,11 +2,18 @@ package com.pluralsight;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.Scanner;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 public class App {
     public static DecimalFormat df = new DecimalFormat("0.00");
     public static Scanner scan = new Scanner(System.in);
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+        String username = System.getenv("MY_DB_USERNAME");
+        String password = System.getenv("MY_DB_PASSWORD");
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUrl("jdbc:mysql://localhost:3306/northwind");
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
         String userInput = "";
         while (true) {
             System.out.println("""
@@ -18,16 +25,17 @@ public class App {
             userInput = scan.nextLine();
             switch(userInput){
                 case "1":
-                    displayProducts();
+                    displayProducts(dataSource);
                     break;
                 case "2":
-                    displayCustomers();
+                    displayCustomers(dataSource);
                     break;
                 case "3":
-                    displayCategories();
+                    displayCategories(dataSource);
                     break;
                 case "0":
                     scan.close();
+                    dataSource.close();
                     System.exit(0);
                 default:
                     System.out.println("ERROR: Please choose a valid option");
@@ -36,9 +44,8 @@ public class App {
         }
     }
 
-    public static void displayProducts() {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/northwind", "root",
-                "");
+    public static void displayProducts(BasicDataSource dataSource) {
+        try (Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement("select * from products;")){
             try( ResultSet results = statement.executeQuery()) {
                 while (results.next()) {
@@ -55,9 +62,8 @@ public class App {
             System.out.println("An error has occurred in the search");
         }
     }
-    public static void displayCustomers() {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/northwind", "root",
-                    "");
+    public static void displayCustomers(BasicDataSource dataSource) {
+        try (Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement("select * from customers;");){
             try (ResultSet results = statement.executeQuery()) {
                 while (results.next()) {
@@ -75,9 +81,8 @@ public class App {
             System.out.println("An error has occurred in the search");
         }
     }
-    public static void displayCategories(){
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/northwind", "root",
-                "");
+    public static void displayCategories(BasicDataSource dataSource){
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("select * from categories order by categoryid;");){
             try (ResultSet results = statement.executeQuery()) {
                 while (results.next()) {
@@ -97,8 +102,7 @@ public class App {
             userInput = scan.nextLine();
             switch(userInput){
                 case "1", "2", "3", "4", "5", "6", "7", "8":
-                    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/northwind", "root",
-                            "");
+                    try (Connection connection = dataSource.getConnection();
                          PreparedStatement statement = connection.prepareStatement("select * from products where categoryid = " + userInput + ";")){
                         try( ResultSet results = statement.executeQuery()) {
                             while (results.next()) {
